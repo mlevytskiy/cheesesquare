@@ -16,9 +16,12 @@
 
 package com.support.android.designlibdemo;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,8 +42,31 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        webView.loadUrl("https://android.googlesource.com/");
-//        webView.loadUrl("http://vk.com/");
+
+        webView.setScrollbarFadingEnabled(true);
+        webView.setNetworkAvailable(true);
+        webView.setDrawingCacheBackgroundColor(Color.WHITE);
+        webView.setFocusableInTouchMode(true);
+        webView.setFocusable(true);
+        webView.setDrawingCacheEnabled(false);
+        webView.setWillNotCacheDrawing(true);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            webView.setAnimationCacheEnabled(false);
+            webView.setAlwaysDrawnWithCacheEnabled(false);
+        }
+
+        WebSettings settings = webView.getSettings();
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+
+
+//        webView.loadUrl("https://android.googlesource.com/");
+        webView.loadUrl("http://vk.com/");
     }
 
 

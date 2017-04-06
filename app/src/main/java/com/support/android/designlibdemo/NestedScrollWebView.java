@@ -5,9 +5,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.NestedScrollingParent;
-import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ScrollerCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,6 +13,7 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
 import android.webkit.WebView;
+import android.widget.OverScroller;
 
 /**
  * Created by max on 06.04.17.
@@ -35,7 +34,7 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
     private int mTouchSlop;
     private int mActivePointerId = INVALID_POINTER;
     private int mNestedYOffset;
-    private ScrollerCompat mScroller;
+    private OverScroller mScroller;
     private int mMinimumVelocity;
     private int mMaximumVelocity;
 
@@ -56,7 +55,7 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
     }
 
     private void initScrollView() {
-        mScroller = ScrollerCompat.create(getContext(), null);
+        mScroller = new OverScroller(getContext());
         final ViewConfiguration configuration = ViewConfiguration.get(getContext());
         mTouchSlop = configuration.getScaledTouchSlop();
         mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
@@ -209,8 +208,7 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
                 if (mIsBeingDragged) {
                     final VelocityTracker velocityTracker = mVelocityTracker;
                     velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                    int initialVelocity = (int) VelocityTrackerCompat.getYVelocity(velocityTracker,
-                            mActivePointerId);
+                    int initialVelocity = (int) velocityTracker.getYVelocity(mActivePointerId);
 
                     if (Math.abs(initialVelocity) > mMinimumVelocity) {
                         flingWithNestedDispatch(-initialVelocity);
@@ -372,4 +370,5 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
     public int getNestedScrollAxes() {
         return ViewCompat.SCROLL_AXIS_NONE;
     }
+
 }
