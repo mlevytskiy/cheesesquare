@@ -35,15 +35,10 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <com.support.android.designlibdemo.NestedScrollWebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
