@@ -18,7 +18,9 @@ package com.support.android.designlibdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * TODO
@@ -31,7 +33,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         WebView webView = (WebView) findViewById(R.id.web_view);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
+            }
+        });
         webView.loadUrl("https://android.googlesource.com/");
+//        webView.loadUrl("http://vk.com/");
     }
 
 
